@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Stats</h1>
+<p id="stats"></p>
+
+<script>
+async function loadStats() {
+    const res = await fetch('/api/stats'); // api-backend przez nginx(proxy/posrednik
+    const data = await res.json();
+
+    document.getElementById('stats').textContent =
+        `Liczba produktow: ${data.count}, Instance: ${data.instanceId}`;
+}
+
+loadStats();
+</script>
+
+</body>
+</html>
