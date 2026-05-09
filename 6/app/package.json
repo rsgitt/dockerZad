@@ -1,0 +1,14 @@
+{
+  "name": "product-dashboard-backend",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "lodash": "^4.17.21",
+    "pg": "^8.20.0",
+    "redis": "^5.12.1"
+  }
+}

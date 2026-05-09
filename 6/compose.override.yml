@@ -1,0 +1,14 @@
+services:
+  backend:
+    environment:
+      NODE_ENV: development
+      DEBUG: "1"
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    command: node --watch src/server.js
+
+  frontend:
+    volumes:
+      - ./front:/usr/share/nginx/html:ro
+      - ./nginx/mynginx.conf:/etc/nginx/nginx.conf:ro
