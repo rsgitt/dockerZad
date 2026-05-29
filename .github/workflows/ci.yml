@@ -50,11 +50,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: starter
+        working-directory: starter/starter
 
       - name: Run lint
         run: npm run lint
-        working-directory: starter
+        working-directory: starter/starter
 
   test:
     runs-on: ubuntu-latest
@@ -71,11 +71,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: starter
+        working-directory: starter/starter
 
       - name: Run tests
         run: npm test
-        working-directory: starter
+        working-directory: starter/starter
 
   build:
     runs-on: ubuntu-latest
@@ -92,8 +92,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: starter
+        working-directory: starter/starter
 
       - name: Run build
         run: npm run build
-        working-directory: starter
+        working-directory: starter/starter
