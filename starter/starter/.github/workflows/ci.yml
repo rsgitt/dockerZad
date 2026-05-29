@@ -1,0 +1,93 @@
+#name: CI #nazwa workflow na github
+
+#on: # workflow uruchamia sie gdy,
+#  push: # git push
+#  pull_request: # tworzyssz git pull request
+
+#jobs: # zadanie
+#  test: # zadanie nr 1
+#    runs-on: ubuntu-latest # maszyna ubuntu na github
+
+#    steps: # lista krokow wykonywanych przez github actions
+#      - name: Pobranie repo # opisy na github
+#        uses: actions/checkout@v4 # ~git clone (gotowa akcja github actions)
+
+#      - name: Instalacja Node.js
+#        uses: actions/setup-node@v4 # install node v20
+#        with:
+#          node-version: 20
+
+#      - name: Instalacja zależności
+#        run: npm install # run, terminal
+
+#      - name: Lint
+#        run: npm run lint
+
+#      - name: Testy
+#        run: npm test
+
+#      - name: Build Docker image
+#        run: docker build -t app .
+
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run lint
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build

@@ -1,0 +1,32 @@
+services:
+  db: # kontener/zamiast adres sieciowy
+    image:  postgres:16-alpine # oficjalny, lekki obraz pg
+    environment: # konf zmiennych srodowiskowych pg
+      POSTGRES_USER: postgres # uzytkownik bd
+      POSTGRES_PASSWORD: postgres # haslo uzyt wyzej
+      POSTGRES_DB: items # nazwa bd
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # miejesce w kontenerze gdzie zapisuje dane pg, ostatecznie sa w wolumenie "postgres_data"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s # ile trwa
+      timeout: 5s # ile czek na odp
+      retries: 5 # ile prob
+
+  app: # usluga backendu node.js
+    build: . #zbuduj obraz z dockerfile ten katalog
+    environment: # zmienne srod dla app node.js
+      PGHOST: db # bd dla app dostepna pod adresem db
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: items
+      PGPORT: 5432
+      PORT: 3000 # wewnatrz kontenerea
+    depends_on:
+      db: # jezeli dziala db to uruchom app
+        condition: service_healthy 
+    ports:
+      - "3000:3000" # localh:3000 do app:3000 (host:kontener)
+
+volumes:
+  postgres_data: # volumen dockera na komputzrze

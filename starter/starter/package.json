@@ -1,0 +1,16 @@
+{
+  "name": "items-api",
+  "version": "1.0.0",
+  "description": "Items REST API (Express + Postgres) — starter dla kolokwium",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test src/*.test.js",
+    "lint": "bash scripts/lint.sh",
+    "build": "mkdir -p dist && cp -r src dist/"
+  },
+  "dependencies": {
+    "express": "4.19.2",
+    "pg": "8.12.0"
+  }
+}
